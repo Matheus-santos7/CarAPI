@@ -93,6 +93,21 @@ router.get('/carros', carrController.buscarTodos); //nessa rota passamos o metod
 module.exports = { //Dentro desse module.exports que vai ser armazenado as funcoes das rotas.
     
 }
+//Criar funcao definida na rota dentro do module.exports 
+buscarTodos: async (req, res) => {
+    let json = { error: '', result: [] }; // Inicializa um objeto JSON para armazenar o resultado e possíveis erros
 
+    let carros = await CarroService.buscarTodos(); // Chama a função assíncrona para buscar informações sobre carros
 
+    for (let i in carros) {
+        // Itera sobre os carros obtidos
+        json.result.push({
+            codigo: carros[i].codigo,
+            descricao: carros[i].modelo
+        }); // Adiciona informações do carro ao resultado JSON
+    }
+    
+    res.json(json); // Envia a resposta no formato JSON com os resultados da busca
+}
+//Criar a promisse dentro do 
 
